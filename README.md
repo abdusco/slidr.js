@@ -26,7 +26,7 @@ Tiny pure vanilla JS library for basic slider/carousel functionality.
     <div class="item"></div>
 </div>
 <!-- ... -->
-<script src="../src/slidr.compiled.js"></script>
+<script src="../src/slidr.compiled.min.js"></script>
 </body>
 ```
 > **protip**: add class `slidr__item--current` to any item to show it upon initiation.
@@ -58,10 +58,10 @@ Include `slidr.css` in `<head>` or just add these
 ### JS
 #### Setting up
 ```js
-// syntax:
-var options = {};
-var list = document.querySelector('.list');
+// syntax: 
+// var ss = new Slidr(container [, options])
 
+var list = document.querySelector('.list');
 var ss = new Slidr(list);
 ```
 
@@ -74,6 +74,15 @@ ss.destroy(); // destroys instance
 ss.update(); // reinitiates slidr
 ```
 
+#### Options
+```js
+{
+    containerClass: 'slidr',
+    currentClass: 'slidr__item--current',
+    itemClass: 'slidr__item',
+    cycle: true,
+}
+```
 ## API
 
 + `Slidr.prototype.next()`, advance to next slide
