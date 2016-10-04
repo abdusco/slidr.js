@@ -1,6 +1,9 @@
 # Slidr.js
 
-Tiny JS library for basic slider functionality.
+Tiny pure vanilla JS library for basic slider/carousel functionality.
+
+## Demo
+[Here](https://rawgit.com/abdusco/slidr.js/master/demo/index.html)
 
 ## Features
 
@@ -11,6 +14,10 @@ Tiny JS library for basic slider functionality.
 
 ### HTML
 ```html
+<!-- ... -->    
+    <link rel="stylesheet" href="slidr.css">
+</head>
+<!-- ... -->
 <div class="list">
     <div class="item"></div>
     <div class="item"></div>
@@ -18,6 +25,9 @@ Tiny JS library for basic slider functionality.
     <div class="item"></div>
     <div class="item"></div>
 </div>
+<!-- ... -->
+<script src="../src/slidr.compiled.js"></script>
+</body>
 ```
 > **protip**: add class `slidr__item--current` to any item to show it upon initiation.
 
