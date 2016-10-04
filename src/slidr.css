@@ -1,0 +1,36 @@
+
+/* region MINIMUM REQUIRED CSS */
+
+.slidr {
+    position: relative;
+    overflow: hidden;
+}
+
+.slidr__item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    visibility: hidden;
+}
+
+.slidr__item--current {
+    visibility: visible;
+    position: relative;
+}
+
+/* endregion */
+
+/* region SWIPE ANIMATION */
+.slidr--swipe .slidr__item {
+    transform: translateY(-1rem) scale(0.95);
+    transform-origin: top center;
+    opacity: 0;
+    transition: all 0.4s;
+}
+
+.slidr--swipe .slidr__item--current {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+/* endregion */

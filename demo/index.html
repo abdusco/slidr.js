@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SwHd.js</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="demo.css">
+    <link rel="stylesheet" href="../src/slidr.css">
+</head>
+<body>
+<div class="container">
+    <div class="item-list slidr--swipe">
+        <div class="item">
+            <h1>Slide #1</h1>
+            <p>Lorem ipsum.</p>
+        </div>
+        <div class="item">
+            <h1>Slide #2</h1>
+            <p>Natus, porro.</p>
+        </div>
+        <div class="item">
+            <h1>Slide #3</h1>
+            <p>Fugit, itaque.</p>
+        </div>
+        <div class="item">
+            <h1>Slide #4</h1>
+            <p>Mollitia, nemo.</p>
+        </div>
+        <div class="item">
+            <h1>Slide #5</h1>
+            <p>Consequatur, iste.</p>
+        </div>
+    </div>
+</div>
+<div class="controls">
+    <button class="button--prev button" type="button">Prev</button>
+    <button class="button--next button" type="button">Next</button>
+    <label class="toggle" for="toggle--cycle"><input type="checkbox" id="toggle--cycle">Cycle?</label>
+</div>
+<script src="../src/slidr.compiled.js"></script>
+<script>
+    var ss = new Slidr(document.querySelector('.item-list'), {
+        cycle: false
+    });
+
+    var buttonNext = document.querySelector('.button--next'),
+    buttonPrev     = document.querySelector('.button--prev'),
+    toggleCycle    = document.querySelector('#toggle--cycle');
+
+    buttonNext.addEventListener('click', function (e) {
+        ss.next();
+    });
+    buttonPrev.addEventListener('click', function (e) {
+        ss.prev();
+    });
+    toggleCycle.addEventListener('change', function (e) {
+        ss.options.cycle = this.checked;
+    });
+
+
+</script>
+</body>
+</html>
