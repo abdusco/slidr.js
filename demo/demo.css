@@ -76,18 +76,20 @@ h1 {
 
 .container {
     padding: 1rem;
+    max-width: 40rem;
+    margin:auto;
 }
 
 .item-list .item {
     min-height: 50vh;
-    background: tomato;
+    background: dodgerblue;
     color: white;
     padding: 2rem;
 }
 
 .controls {
-    padding: 2rem;
-    margin-top: 2rem;
+    padding: 0 1rem;
+    margin-top: 1rem;
     text-align: center;
 }
 
