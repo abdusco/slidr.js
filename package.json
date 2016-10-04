@@ -1,0 +1,16 @@
+{
+  "name": "slidr",
+  "version": "1.0.0",
+  "description": "Tiny pure vanilla JS library for basic slider/carousel functionality.",
+  "main": "src/slidr.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abdusco/slidr.js.git"
+  },
+  "author": "abdus",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abdusco/slidr.js/issues"
+  },
+  "homepage": "https://github.com/abdusco/slidr.js#readme"
+}
