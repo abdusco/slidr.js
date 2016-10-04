@@ -109,13 +109,14 @@ h1 {
 }
 
 .button:hover {
-    background-color: hsl(209, 100%, 65%);
+    background-color: hsl(209, 100%, 60%);
     box-shadow: 0 0.25rem 1rem hsla(209, 10%, 55%, 0.15);
 }
 
 .button:active {
     background-color: hsl(209, 100%, 45%);
     box-shadow: 0 0.125rem 0.25rem hsla(209, 10%, 55%, 0.3);
+    transform: translateY(1px);
 }
 
 .toggle {
