@@ -46,7 +46,6 @@
             });
         }
         this.activate = function (index) {
-            index = _.getIndex(index);
             if (index === this.position.current) return;
 
             this.reset();
@@ -57,7 +56,6 @@
             nextItem.classList.add(this.options.currentClass);
 
             this.position.current = index;
-            return index;
         }
         this.getIndex = function (index) {
             var count = this.items.length;
@@ -105,17 +103,19 @@
 
     var s = Slidr.prototype;
     s.show = function (index) {
-        return this.activate(index);
+        index = this.getIndex(index);
+        this.activate(index);
+        this.dispatch('slidr:show', {index: index, item: this.items[index]});
     }
     s.next = function () {
-        var index = this.position.current + 1;
-        index = this.activate(index);
-        if (index !== undefined) this.dispatch('slidr:next', {index: index, item: this.items[index]});
+        var index = this.getIndex(this.position.current + 1);
+        this.activate(index);
+        this.dispatch('slidr:next', {index: index, item: this.items[index]});
     }
     s.prev = function () {
-        var index = this.position.current - 1;
-        index = this.activate(index);
-        if (index !== undefined) this.dispatch('slidr:prev', {index: index, item: this.items[index]});
+        var index = this.getIndex(this.position.current - 1);
+        this.activate(index);
+        this.dispatch('slidr:prev', {index: index, item: this.items[index]});
     }
     s.update = function () {
         return this.init(this.container);

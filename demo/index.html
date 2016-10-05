@@ -45,44 +45,43 @@
 </div>
 <script src="../src/slidr.js"></script>
 <script>
-    (function initDemo() {
-        var ss = new Slidr(document.querySelector('.item-list'), {
-            cycle: true
-        });
+    var ss = new Slidr(document.querySelector('.item-list'), {
+        cycle: true
+    });
 
-        var buttonNext = document.querySelector('.button--next'),
-                buttonPrev = document.querySelector('.button--prev'),
-                toggleCycle = document.querySelector('#toggle--cycle'),
-                monitor = document.querySelector('.monitor');
+    var buttonNext = document.querySelector('.button--next'),
+            buttonPrev = document.querySelector('.button--prev'),
+            toggleCycle = document.querySelector('#toggle--cycle'),
+            monitor = document.querySelector('.monitor');
 
-        buttonNext.addEventListener('click', function (e) {
-            ss.next();
-        });
-        buttonPrev.addEventListener('click', function (e) {
-            ss.prev();
-        });
-        toggleCycle.addEventListener('change', function (e) {
-            ss.options.cycle = this.checked;
-        });
+    buttonNext.addEventListener('click', function (e) {
+        ss.next();
+    });
+    buttonPrev.addEventListener('click', function (e) {
+        ss.prev();
+    });
+    toggleCycle.addEventListener('change', function (e) {
+        ss.options.cycle = this.checked;
+    });
 
-        ss.on('slidr:next', logger);
-        ss.on('slidr:prev', logger);
+    ss.on('slidr:next', logger);
+    ss.on('slidr:prev', logger);
+    ss.on('slidr:show', logger);
 
-        function logger(e) {
+    function logger(e) {
 
-            var item = document.createElement('p');
-            item.innerHTML = (new Date()).toUTCString() + '<br/>'
-                    + 'event.type: "' + e.type + '"' + '<br/>'
-                    + 'event.detail.index: ' + JSON.stringify(e.detail.index) + '<br/>'
-                    + 'event.detail.item: (current item)';
-            monitor.prepend(item);
+        var item = document.createElement('p');
+        item.innerHTML = (new Date()).toUTCString() + '<br/>'
+                + 'event.type: "' + e.type + '"' + '<br/>'
+                + 'event.detail.index: ' + JSON.stringify(e.detail.index) + '<br/>'
+                + 'event.detail.item: (current item)';
+        monitor.prepend(item);
 
-            // remove the oldest entry if needed
-            if (monitor.children.length > 3) {
-                monitor.removeChild(monitor.lastChild);
-            }
+        // remove the oldest entry if needed
+        if (monitor.children.length > 3) {
+            monitor.removeChild(monitor.lastChild);
         }
-    })();
+    }
 </script>
 </body>
 </html>

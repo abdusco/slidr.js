@@ -7,7 +7,7 @@ Tiny pure vanilla JS library for basic slider/carousel functionality.
 
 ## Features
 
-+ Very small, less than 2.5KB minified, less than 1KB minified + gzipped.
++ Very small, ~2.5KB minified, less than 1KB minified + gzipped.
 + Supports IE8+
 + Custom events
 
@@ -106,6 +106,4 @@ destroy instance and revert container to initial state
 ### `Slidr.prototype.on(name, listener)` 
 Attaches event listener to container. 
 
-Possible event names are `slidr:next` and `slidr:prev`. Both are fired after slide changes.
-
-Event detail consists of `{index: <current index>, item: <current item>}`.
+Possible event names are `slidr:next`, `slidr:prev` and `slidr:show`, all fired after the slide change. Event detail consists of `{index: <current index>, item: <current item>}`.
