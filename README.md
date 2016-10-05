@@ -87,10 +87,25 @@ ss.on('slidr:next', callback); // attach event listener
 ```
 ## API
 
-+ `Slidr.prototype.next()`, advance to next slide
-+ `Slidr.prototype.prev()`, back to previous slide
-+ `Slidr.prototype.show(index)`, show slide at specific index 
-  > protip: `index` is 0 based
-+ `Slidr.prototype.update()` use this to update the instance after adding items dynamically
-+ `Slidr.prototype.destroy(index)` destroy instance and revert container to initial state
-+ `Slidr.prototype.on(name, callback)` attaches event listener to container. Possible event names are `slidr:next` and `slidr:prev`. Both are fired after slide changes.
+### `Slidr.prototype.next()` 
+Advance to next slide
+
+### `Slidr.prototype.prev()`
+Back to previous slide
+
+### `Slidr.prototype.show(index)`
+Show slide at specific index 
+> protip: `index` is 0 based
+
+### `Slidr.prototype.update()` 
+Use this to update the instance after adding items dynamically
+
+### `Slidr.prototype.destroy(index)` 
+destroy instance and revert container to initial state
+
+### `Slidr.prototype.on(name, listener)` 
+Attaches event listener to container. 
+
+Possible event names are `slidr:next` and `slidr:prev`. Both are fired after slide changes.
+
+Event detail consists of `{index: <current index>, item: <current item>}`.

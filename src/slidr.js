@@ -124,8 +124,8 @@
         this.reset(this.items, true);
         this.container.classList.remove(this.options.containerClass);
     }
-    s.on = function (name, cb) {
-        this.container.addEventListener(name, cb);
+    s.on = function (name, listener) {
+        this.container.addEventListener(name, listener);
     }
 
     // Exports to multiple environments
