@@ -7,7 +7,7 @@ Tiny pure vanilla JS library for basic slider/carousel functionality.
 
 ## Features
 
-+ Very small, < 2KB minified, < 1KB minified + gzipped.
++ Very small, less than 2.5KB minified, less than 1KB minified + gzipped.
 + Supports IE8+
 + Custom events
 
