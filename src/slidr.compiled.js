@@ -1,10 +1,25 @@
 /**
  * Created by Abdus on 4.10.2016.
  */
+
+// CustomEvent polyfill
+(function () {
+    if (typeof window.CustomEvent === "function") { return false; }
+
+    function CustomEvent(event, params) {
+        params = params || {bubbles: false, cancelable: false, detail: undefined};
+        var evt = document.createEvent('CustomEvent');
+        evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+        return evt;
+    }
+
+    CustomEvent.prototype = window.Event.prototype;
+
+    window.CustomEvent = CustomEvent;
+})();
+
 (function (global) {
-    "use strict";
     function Slidr(container, options) {
-        "use strict";
         if (!container instanceof Node) { throw new Error('element should be single'); }
 
         var _ = this;
@@ -34,14 +49,17 @@
         }
         this.activate = function (index) {
             index = _.getIndex(index);
+            if (index === this.position.current) { return; }
+
+            this.reset();
             var prevItem = _.items[this.position.current];
             var nextItem = _.items[index];
 
             prevItem.classList.remove(this.options.currentClass);
             nextItem.classList.add(this.options.currentClass);
-            // _.reset([prevItem]);
 
             this.position.current = index;
+            return index;
         }
         this.getIndex = function (index) {
             var count = this.items.length;
@@ -52,22 +70,21 @@
                 index %= count;
                 if (index < 0) { index += count; }
             }
-            // if larger than max, pick max
-            else if (index > count - 1) { index = count - 1; }
-            // if smaller than mix, pick min
-            else if (index < 0) { index = 0; }
-
-            return index;
+            // clamp index between bounds [0, count - 1]
+            return Math.min(Math.max(index, 0), count - 1);
         }
-        this.init = function (c) {
+        this.dispatch = function (name, detail) {
+            var e = new CustomEvent(name, {detail: detail});
+            _.container.dispatchEvent(e);
+        }
+        this.init = function (container) {
             var this$1 = this;
 
-
             // prepare container and items
-            _.container = c;
-            c.classList.add(_.options.containerClass);
+            _.container = container;
+            container.classList.add(_.options.containerClass);
 
-            var items = [].slice.call(c.children);
+            var items = [].slice.call(container.children);
             items.forEach(function (i) { return i.classList.add(this$1.options.itemClass); });
             _.items = items;
 
@@ -85,45 +102,35 @@
             }
             _.position.current = _.items.indexOf(current);
 
+            return container;
         }
         this.init(container);
     }
 
     var s = Slidr.prototype;
     s.show = function (index) {
-        "use strict";
-        this.activate(index);
+        return this.activate(index);
     }
     s.next = function () {
-        "use strict";
-        var next = this.position.current + 1;
-
-        /*var event = document.createEvent('CustomEvent');
-         event.initCustomEvent('slidr:next', true, true, {
-         index: this.position.current,
-         item: this.items[next]
-         })
-         this.container.dispatchEvent(event);*/
-
-        this.reset();
-        this.activate(next);
-
+        var index = this.position.current + 1;
+        index = this.activate(index);
+        if (index !== undefined) { this.dispatch('slidr:next', {index: index, item: this.items[index]}); }
     }
     s.prev = function () {
-        this.reset();
-        this.activate(this.position.current - 1);
+        var index = this.position.current - 1;
+        index = this.activate(index);
+        if (index !== undefined) { this.dispatch('slidr:prev', {index: index, item: this.items[index]}); }
     }
     s.update = function () {
-        "use strict";
-        this.init(this.container);
+        return this.init(this.container);
     }
     s.destroy = function () {
         this.reset(this.items, true);
         this.container.classList.remove(this.options.containerClass);
     }
-    /*s.on = function (name, cb) {
-     this.container.addEventListener(name, cb);
-     }*/
+    s.on = function (name, cb) {
+        this.container.addEventListener(name, cb);
+    }
 
     // Exports to multiple environments
     if (typeof define === 'function' && define.amd) { //AMD

@@ -31,33 +31,58 @@
             <p>Consequatur, iste.</p>
         </div>
     </div>
+    <div class="controls">
+        <button class="button--prev button" type="button">Prev</button>
+        <button class="button--next button" type="button">Next</button>
+        <label class="toggle" for="toggle--cycle"><input type="checkbox" checked id="toggle--cycle">Cycle?</label>
+    </div>
+    <div class="monitor-container">
+        <h2 class="monitor__title">event stream</h2>
+        <div class="monitor">
+
+        </div>
+    </div>
 </div>
-<div class="controls">
-    <button class="button--prev button" type="button">Prev</button>
-    <button class="button--next button" type="button">Next</button>
-    <label class="toggle" for="toggle--cycle"><input type="checkbox" id="toggle--cycle">Cycle?</label>
-</div>
-<script src="../src/slidr.compiled.min.js"></script>
+<script src="../src/slidr.js"></script>
 <script>
-    var ss = new Slidr(document.querySelector('.item-list'), {
-        cycle: false
-    });
+    (function initDemo() {
+        var ss = new Slidr(document.querySelector('.item-list'), {
+            cycle: true
+        });
 
-    var buttonNext = document.querySelector('.button--next'),
-    buttonPrev     = document.querySelector('.button--prev'),
-    toggleCycle    = document.querySelector('#toggle--cycle');
+        var buttonNext = document.querySelector('.button--next'),
+                buttonPrev = document.querySelector('.button--prev'),
+                toggleCycle = document.querySelector('#toggle--cycle'),
+                monitor = document.querySelector('.monitor');
 
-    buttonNext.addEventListener('click', function (e) {
-        ss.next();
-    });
-    buttonPrev.addEventListener('click', function (e) {
-        ss.prev();
-    });
-    toggleCycle.addEventListener('change', function (e) {
-        ss.options.cycle = this.checked;
-    });
+        buttonNext.addEventListener('click', function (e) {
+            ss.next();
+        });
+        buttonPrev.addEventListener('click', function (e) {
+            ss.prev();
+        });
+        toggleCycle.addEventListener('change', function (e) {
+            ss.options.cycle = this.checked;
+        });
 
+        ss.on('slidr:next', logger);
+        ss.on('slidr:prev', logger);
 
+        function logger(e) {
+
+            var item = document.createElement('p');
+            item.innerHTML = (new Date()).toUTCString() + '<br/>'
+                    + 'event.type: "' + e.type + '"' + '<br/>'
+                    + 'event.detail.index: ' + JSON.stringify(e.detail.index) + '<br/>'
+                    + 'event.detail.item: (current item)';
+            monitor.prepend(item);
+
+            // remove the oldest entry if needed
+            if (monitor.children.length > 3) {
+                monitor.removeChild(monitor.lastChild);
+            }
+        }
+    })();
 </script>
 </body>
 </html>
