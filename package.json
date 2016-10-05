@@ -1,6 +1,6 @@
 {
   "name": "slidr",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Tiny pure vanilla JS library for basic slider/carousel functionality.",
   "main": "src/slidr.js",
   "repository": {
